@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+dist/
+build/
+*.egg-info/
+.databricks/
+.idea/
+.vscode/
+.DS_Store
+
+# Never commit the full MetroPT-3 dataset or cloud credentials.
+data/raw/
+data/*.csv
+!data/sample/*.csv
+*.pbix
+*.pbit
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+.env
+

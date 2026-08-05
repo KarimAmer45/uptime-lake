@@ -1,0 +1,49 @@
+bundle:
+  name: uptime-lake
+
+include:
+  - resources/*.yml
+
+artifacts:
+  default:
+    type: whl
+    build: python -m pip wheel . --no-deps --wheel-dir dist
+    path: .
+
+variables:
+  catalog:
+    description: Unity Catalog catalog used by the pipeline.
+    default: metro
+  source_path:
+    description: ADLS Gen2 abfss path or Unity Catalog volume path containing MetroPT-3 CSV.
+  spark_version:
+    description: Azure Databricks Runtime version.
+    default: 15.4.x-scala2.12
+  node_type_id:
+    description: Small Azure VM used for the single-node job cluster.
+    default: Standard_DS3_v2
+  schedule_pause_status:
+    description: Set to UNPAUSED only when the production workspace is ready.
+    default: PAUSED
+  read_principal:
+    description: Optional Unity Catalog group granted read-only Gold access.
+    default: ""
+
+workspace:
+  root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
+targets:
+  dev:
+    default: true
+    mode: development
+    variables:
+      catalog: metro_dev
+      schedule_pause_status: PAUSED
+  prod:
+    mode: production
+    variables:
+      catalog: metro
+      schedule_pause_status: UNPAUSED
+    permissions:
+      - level: CAN_MANAGE
+        user_name: ${workspace.current_user.userName}

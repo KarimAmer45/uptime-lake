@@ -1,0 +1,43 @@
+version: 1
+dataset: MetroPT-3
+row_level_checks:
+  - name: invalid_reading_id
+    contract: index parses as a non-null 64-bit integer
+  - name: invalid_timestamp
+    contract: timestamp parses as a non-null timestamp
+  - name: timestamp_outside_expected_window
+    contract: timestamp is within the documented 2020 collection year
+  - name: missing_required_sensor
+    contract: all 15 sensor fields parse as numbers
+  - name: pressure_out_of_range
+    columns: [TP2, TP3, H1, DV_pressure, Reservoirs]
+    minimum: -2
+    maximum: 20
+    unit: bar
+  - name: oil_temperature_out_of_range
+    column: Oil_temperature
+    minimum: -30
+    maximum: 150
+    unit: Celsius
+  - name: motor_current_out_of_range
+    column: Motor_current
+    minimum: -1
+    maximum: 50
+    unit: ampere
+  - name: invalid_binary_signal
+    columns: [COMP, DV_eletric, Towers, MPG, LPS, Pressure_switch, Oil_level]
+    allowed: [0, 1]
+  - name: negative_caudal_impulses
+    column: Caudal_impulses
+    minimum: 0
+  - name: duplicate_reading
+    key: [index, timestamp]
+    policy: retain_first_reject_later_rows
+dataset_level_checks:
+  - name: bronze_reconciles_to_silver_and_rejects
+    contract: bronze_count == silver_count + reject_count
+  - name: silver_key_is_unique
+    contract: count_duplicates(reading_id, event_ts) == 0
+  - name: gold_fact_matches_silver
+    contract: gold_fact_count == silver_count
+

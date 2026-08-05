@@ -1,0 +1,22 @@
+{
+  "anomaly_rows": 4,
+  "failed_rows_by_check": {
+    "duplicate_reading": 1,
+    "invalid_binary_signal": 1,
+    "invalid_reading_id": 1,
+    "invalid_timestamp": 1,
+    "missing_required_sensor": 1,
+    "motor_current_out_of_range": 1,
+    "negative_caudal_impulses": 1,
+    "oil_temperature_out_of_range": 1,
+    "pressure_out_of_range": 1,
+    "timestamp_outside_expected_window": 1
+  },
+  "quality_checks": 10,
+  "reconciled": true,
+  "reject_rows": 10,
+  "sample_pass_rate_pct": 54.545,
+  "silver_rows": 12,
+  "source_rows": 22
+}
+

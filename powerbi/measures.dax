@@ -1,0 +1,27 @@
+// Create a table named _Measures, then add these measures in Power BI TMDL view.
+Total Readings = SUM('powerbi_equipment_health'[reading_count])
+
+Telemetry Coverage % =
+DIVIDE(
+    SUMX('powerbi_equipment_health', 'powerbi_equipment_health'[telemetry_coverage_pct] * 'powerbi_equipment_health'[reading_count]),
+    [Total Readings]
+)
+
+Anomaly Readings = SUM('powerbi_equipment_health'[anomaly_reading_count])
+
+Anomaly Rate % = DIVIDE([Anomaly Readings], [Total Readings]) * 100
+
+Known Failure Window Readings = SUM('powerbi_equipment_health'[known_failure_window_readings])
+
+Peak Oil Temperature °C = MAX('powerbi_equipment_health'[max_oil_temperature_c])
+
+Peak Motor Current A = MAX('powerbi_equipment_health'[max_motor_current_a])
+
+Health Status =
+SWITCH(
+    TRUE(),
+    [Anomaly Rate %] >= 10, "Critical",
+    [Anomaly Rate %] >= 3, "Watch",
+    "Normal"
+)
+

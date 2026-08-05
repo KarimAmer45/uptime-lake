@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680" role="img" aria-labelledby="title desc">
+  <title id="title">Uptime Lake medallion architecture</title>
+  <desc id="desc">MetroPT-3 flows from UCI through ADLS, Bronze, Silver, Gold, and Power BI. Unity Catalog governs the Delta tables and an Azure Databricks Job orchestrates the pipeline.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#0d1c30"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-opacity=".24"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#61d4ca"/></marker>
+    <style>
+      .title{font:700 32px 'Segoe UI',Arial,sans-serif;fill:#f4f7fb}.sub{font:400 16px 'Segoe UI',Arial,sans-serif;fill:#9fb0c7}
+      .label{font:700 18px 'Segoe UI',Arial,sans-serif;fill:#f4f7fb}.small{font:400 13px 'Segoe UI',Arial,sans-serif;fill:#b8c6d9}
+      .pill{font:600 12px 'Segoe UI',Arial,sans-serif;fill:#08111f}.edge{stroke:#61d4ca;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1440" height="680" rx="24" fill="url(#bg)"/>
+  <text class="title" x="70" y="70">Cloud IoT Predictive-Maintenance Lakehouse</text>
+  <text class="sub" x="70" y="102">Azure Databricks · Delta Lake · Unity Catalog · Power BI</text>
+
+  <path class="edge" d="M260 302 H318"/><path class="edge" d="M510 302 H568"/><path class="edge" d="M760 302 H818"/><path class="edge" d="M1010 302 H1068"/>
+
+  <g filter="url(#shadow)"><rect x="70" y="205" width="190" height="194" rx="18" fill="#13233a" stroke="#2a4160"/>
+    <rect x="92" y="225" width="73" height="24" rx="12" fill="#61d4ca"/><text class="pill" x="108" y="242">SOURCE</text>
+    <text class="label" x="92" y="282">MetroPT-3</text><text class="small" x="92" y="311">1,516,948 readings</text><text class="small" x="92" y="334">15 IoT signals</text><text class="small" x="92" y="357">CC BY 4.0</text>
+  </g>
+  <g filter="url(#shadow)"><rect x="320" y="205" width="190" height="194" rx="18" fill="#13233a" stroke="#2a4160"/>
+    <rect x="342" y="225" width="67" height="24" rx="12" fill="#58a6ff"/><text class="pill" x="356" y="242">AZURE</text>
+    <text class="label" x="342" y="282">ADLS Gen2</text><text class="small" x="342" y="311">Raw CSV landing</text><text class="small" x="342" y="334">abfss:// path</text><text class="small" x="342" y="357">Auditable source</text>
+  </g>
+  <g filter="url(#shadow)"><rect x="570" y="205" width="190" height="194" rx="18" fill="#3a251c" stroke="#a8653f"/>
+    <rect x="592" y="225" width="72" height="24" rx="12" fill="#d68a5b"/><text class="pill" x="605" y="242">BRONZE</text>
+    <text class="label" x="592" y="282">Raw Delta</text><text class="small" x="592" y="311">All fields as strings</text><text class="small" x="592" y="334">Source + run metadata</text><text class="small" x="592" y="357">Exact row count</text>
+  </g>
+  <g filter="url(#shadow)"><rect x="820" y="205" width="190" height="194" rx="18" fill="#27313d" stroke="#7f94ad"/>
+    <rect x="842" y="225" width="66" height="24" rx="12" fill="#b7c6d8"/><text class="pill" x="854" y="242">SILVER</text>
+    <text class="label" x="842" y="282">Quality Gate</text><text class="small" x="842" y="311">Typed + deduped</text><text class="small" x="842" y="334">10 explicit checks</text><text class="small" x="842" y="357">Reasoned rejects</text>
+  </g>
+  <g filter="url(#shadow)"><rect x="1070" y="205" width="190" height="194" rx="18" fill="#39311c" stroke="#aa8b37"/>
+    <rect x="1092" y="225" width="55" height="24" rx="12" fill="#f0c75e"/><text class="pill" x="1104" y="242">GOLD</text>
+    <text class="label" x="1092" y="282">Star Schema</text><text class="small" x="1092" y="311">Reading + daily facts</text><text class="small" x="1092" y="334">3 dimensions</text><text class="small" x="1092" y="357">Health KPIs</text>
+  </g>
+  <g filter="url(#shadow)"><rect x="1285" y="235" width="115" height="134" rx="18" fill="#241d3c" stroke="#725db3"/>
+    <text class="label" x="1307" y="282">Power BI</text><text class="small" x="1307" y="311">Health</text><text class="small" x="1307" y="334">report</text>
+  </g>
+  <path class="edge" d="M1260 302 H1278"/>
+
+  <g filter="url(#shadow)"><rect x="320" y="470" width="440" height="118" rx="18" fill="#101f34" stroke="#3a567a"/>
+    <text class="label" x="350" y="510">Unity Catalog governance</text><text class="small" x="350" y="540">Catalog + schemas · table/column comments · lineage · least-privilege grants</text><path d="M540 470 V416" stroke="#58a6ff" stroke-width="2" stroke-dasharray="6 6"/>
+  </g>
+  <g filter="url(#shadow)"><rect x="820" y="470" width="440" height="118" rx="18" fill="#101f34" stroke="#3a567a"/>
+    <text class="label" x="850" y="510">Scheduled Databricks Workflow</text><text class="small" x="850" y="540">5 dependent tasks · single-node compute · hard acceptance gate · weekly schedule</text><path d="M1040 470 V416" stroke="#58a6ff" stroke-width="2" stroke-dasharray="6 6"/>
+  </g>
+  <text class="small" x="70" y="634">Idempotent batch pipeline · full source snapshot · run-level audit evidence</text>
+</svg>
+

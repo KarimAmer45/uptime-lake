@@ -1,0 +1,17 @@
+{
+  "name": "Uptime Lake",
+  "dataColors": ["#39D0C8", "#58A6FF", "#FFB454", "#FF6174", "#A78BFA"],
+  "background": "#08111F",
+  "foreground": "#F4F7FB",
+  "tableAccent": "#39D0C8",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{"color": {"solid": {"color": "#111C2E"}}, "transparency": 0}],
+        "title": [{"fontColor": {"solid": {"color": "#F4F7FB"}}, "fontSize": 12}],
+        "border": [{"show": true, "color": {"solid": {"color": "#24344D"}}, "radius": 8}]
+      }
+    }
+  }
+}
+

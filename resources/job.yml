@@ -1,0 +1,79 @@
+resources:
+  jobs:
+    metropt_lakehouse:
+      name: ${bundle.target}-metropt-lakehouse
+      description: Scheduled Bronze-Silver-Gold MetroPT-3 predictive-maintenance pipeline.
+      max_concurrent_runs: 1
+      timeout_seconds: 10800
+      schedule:
+        quartz_cron_expression: "0 0 6 ? * SUN"
+        timezone_id: Europe/Berlin
+        pause_status: ${var.schedule_pause_status}
+      tags:
+        project: uptime-lake
+        domain: predictive-maintenance
+        environment: ${bundle.target}
+      job_clusters:
+        - job_cluster_key: single_node
+          new_cluster:
+            spark_version: ${var.spark_version}
+            node_type_id: ${var.node_type_id}
+            num_workers: 0
+            data_security_mode: SINGLE_USER
+            spark_conf:
+              spark.databricks.cluster.profile: singleNode
+              spark.master: local[*]
+            custom_tags:
+              ResourceClass: SingleNode
+      tasks:
+        - task_key: setup_catalog
+          job_cluster_key: single_node
+          notebook_task:
+            notebook_path: ../notebooks/00_setup_catalog.py
+            base_parameters:
+              catalog: ${var.catalog}
+              read_principal: ${var.read_principal}
+              run_id: "{{job.run_id}}"
+          libraries: &project_wheel
+            - whl: ../dist/*.whl
+        - task_key: ingest_bronze
+          depends_on:
+            - task_key: setup_catalog
+          job_cluster_key: single_node
+          notebook_task:
+            notebook_path: ../notebooks/01_ingest_bronze.py
+            base_parameters:
+              catalog: ${var.catalog}
+              source_path: ${var.source_path}
+              run_id: "{{job.run_id}}"
+          libraries: *project_wheel
+        - task_key: build_silver
+          depends_on:
+            - task_key: ingest_bronze
+          job_cluster_key: single_node
+          notebook_task:
+            notebook_path: ../notebooks/02_silver_quality.py
+            base_parameters:
+              catalog: ${var.catalog}
+              run_id: "{{job.run_id}}"
+          libraries: *project_wheel
+        - task_key: build_gold
+          depends_on:
+            - task_key: build_silver
+          job_cluster_key: single_node
+          notebook_task:
+            notebook_path: ../notebooks/03_gold_star_schema.py
+            base_parameters:
+              catalog: ${var.catalog}
+              run_id: "{{job.run_id}}"
+          libraries: *project_wheel
+        - task_key: validate_pipeline
+          depends_on:
+            - task_key: build_gold
+          job_cluster_key: single_node
+          notebook_task:
+            notebook_path: ../notebooks/04_validate_pipeline.py
+            base_parameters:
+              catalog: ${var.catalog}
+              run_id: "{{job.run_id}}"
+          libraries: *project_wheel
