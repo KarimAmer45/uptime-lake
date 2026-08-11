@@ -23,7 +23,7 @@ with explicit reasons, governs the model in Unity Catalog, and exposes daily equ
 The code is complete and locally verified. Cloud-only evidence is deliberately not fabricated: the real green
 job run, Unity Catalog lineage/grants, production metrics, and refreshed Power BI screenshot must be captured
 from the workspace by following [`docs/evidence-checklist.md`](docs/evidence-checklist.md). Until those files
-exist, do not claim the project as deployed on a CV.
+exist, do not claim the project as deployed.
 
 ## Local validation results
 
@@ -164,7 +164,7 @@ Power BI screenshot. The report uses the already-small daily table in Import mod
 - [ ] Unity Catalog lineage and grant screenshots
 - [ ] Refreshed Power BI report and screenshot
 
-After those four cloud evidence items are real, a defensible CV bullet is:
+After those four cloud evidence items are real, a defensible project summary is:
 
 > Built an Azure Databricks predictive-maintenance lakehouse over 1.52M MetroPT-3 IoT readings, using ADLS
 > Gen2 and a Delta Lake Bronze–Silver–Gold pipeline; enforced 10 automated quality rules with reasoned reject

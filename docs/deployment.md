@@ -65,7 +65,7 @@ schedule before deployment.
 ## 6. Capture evidence and control cost
 
 Run `sql/portfolio_queries.sql`, save quantified metrics, and follow `docs/evidence-checklist.md`. Only after
-all real screenshots and metrics are committed should the README checklist and CV bullets be marked complete.
+all real screenshots and metrics are committed should the README checklist be marked complete.
 
 To stop spend, pause the production job and terminate its cluster. When the demo is no longer needed, delete
 the exact resource group created above:
