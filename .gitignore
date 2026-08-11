@@ -22,3 +22,4 @@ data/*.csv
 **/.pbi/cache.abf
 .env
 
+.claude/
